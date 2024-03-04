@@ -1,0 +1,349 @@
+{
+	"info": {
+		"_postman_id": "6ffb55db-ff21-4cf1-ab01-ba6b364d567f",
+		"name": "reqres.basic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "27421608-6ffb55db-ff21-4cf1-ab01-ba6b364d567f"
+	},
+	"item": [
+		{
+			"name": "WithScript",
+			"item": [
+				{
+					"name": "ListUsers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d3b055b9-72d3-42dc-9a2a-333173761252",
+								"exec": [
+									"console.log (\"Hello World...\");\r",
+									"pm.environment.set('name', 'JianaK');\r",
+									"let name = pm.environment.get('name'); // useing Javascript in Test\r",
+									"console.log ( name );\r",
+									"\r",
+									"pm.test(\"Verify Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});                 // check Test Results"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "34a77ff7-9114-402a-bec5-dbaf34ee5178",
+								"exec": [
+									"console.log (\"Pre-request Script: Start\");\r",
+									"console.log (\"Pre-request Script: End\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "677fa3dc-28e9-439e-90c0-a9cb3222e126",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users?page=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "WithCSVDataFile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "69dc9a38-0b84-47ee-8e5d-40282be03a0a",
+								"exec": [
+									"if (pm.response.code != 200) {\r",
+									"    pm.test(\"Failed\", function () {\r",
+									"        pm.response.to.have.body(\"token\");\r",
+									"\r",
+									"    });\r",
+									"} else {\r",
+									"    pm.test(\"Status code is 200\", function () {\r",
+									"        pm.response.to.have.status(200);  \r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "93de2f1b-a07c-43b3-8bbc-1d63846ecf3f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{Password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "c77529c6-769d-4eda-896d-201db4b298aa"
+		},
+		{
+			"name": "SingleUser",
+			"id": "81555926-e150-4f7f-a76d-f8d4f4f762a7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/users/3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DelayedResponse",
+			"id": "52d44382-ccc6-4043-91e8-9ce18e63435b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/users?delay=3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "delay",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SingleUserNotReturn404",
+			"id": "56d71d3f-afef-423e-9fea-ca17517e58f9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/users/23",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ChangeUserDetails",
+			"id": "ce543c25-bbbd-4558-9835-1af3ae809c55",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"zion resident\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/users/2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ChangeUserDetails",
+			"id": "d678dd9b-ab18-41b6-b9a1-461ba30efd6e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"zion resident\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/users/2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateNewUser201",
+			"id": "b1fcbe73-5022-4a2e-933f-219dfcea7ef3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Jiana\",\r\n    \"job\": \"Test Analyst\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FailedDueToMissingInfo",
+			"id": "fa122be9-9542-44ae-81ae-bb465e25cde8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"sydney@fife\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SuccessRemove204",
+			"id": "0a7c5b49-6ba6-498a-8fb8-f305f0bd290f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/users/2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
